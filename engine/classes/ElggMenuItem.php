@@ -131,6 +131,8 @@ class ElggMenuItem {
 		if (isset($options['item_class'])) {
 			$item->setItemClass($options['item_class']);
 			unset($options['item_class']);
+		} else {
+			$item->setItemClass('elgg-menu-item-'.$item->getName());
 		}
 		
 		foreach ($options as $key => $value) {
