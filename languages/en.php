@@ -81,7 +81,6 @@ $english = array(
 	'ElggPlugin:Exception:CannotIncludeFile' => 'Cannot include %s for plugin %s (guid: %s) at %s.  Check permissions!',
 	'ElggPlugin:Exception:CannotRegisterViews' => 'Cannot open views dir for plugin %s (guid: %s) at %s.  Check permissions!',
 	'ElggPlugin:Exception:CannotRegisterLanguages' => 'Cannot register languages for plugin %s (guid: %s) at %s.  Check permissions!',
-	'ElggPlugin:Exception:CannotRegisterClasses' => 'Cannot register classes for plugin %s (guid: %s) at %s.  Check permissions!',
 	'ElggPlugin:Exception:NoID' => 'No ID for plugin guid %s!',
 
 	'PluginException:ParserError' => 'Error parsing manifest with API version %s in plugin %s.',
@@ -598,11 +597,14 @@ $english = array(
 	'admin:plugins:category:bundled' => 'Bundled',
 	'admin:plugins:category:content' => 'Content',
 	'admin:plugins:category:development' => 'Development',
-	'admin:plugins:category:extension' => 'Extensions',
+	'admin:plugins:category:enhancement' => 'Enhancements',
 	'admin:plugins:category:api' => 'Service/API',
 	'admin:plugins:category:communication' => 'Communication',
+	'admin:plugins:category:security' => 'Security and Spam',
 	'admin:plugins:category:social' => 'Social',
 	'admin:plugins:category:multimedia' => 'Multimedia',
+	'admin:plugins:category:theme' => 'Themes',
+	'admin:plugins:category:widget' => 'Widgets',
 
 	'admin:plugins:markdown:unknown_plugin' => 'Unknown plugin.',
 	'admin:plugins:markdown:unknown_file' => 'Unknown file.',
@@ -659,6 +661,7 @@ $english = array(
 	'admin:plugins:simple_simple_fail' => 'Could not save settings.',
 	'admin:plugins:simple_simple_success' => 'Settings saved.',
 	'admin:plugins:simple:cannot_activate' => 'Cannot activate this plugin. Check the advanced plugin admin area for more information.',
+	'admin:plugins:warning:unmet_dependencies_active' => 'This plugin is active but has unmet dependencies. You may encounter problems. See "more info" below for details.',
 
 	'admin:plugins:dependencies:type' => 'Type',
 	'admin:plugins:dependencies:name' => 'Name',

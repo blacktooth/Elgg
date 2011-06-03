@@ -281,6 +281,7 @@ table.mceLayout {
 	background-color: #111;
 	border: 1px solid #999;
 	padding: 10px 20px;
+	margin-bottom: 10px;
 }
 .elgg-page-footer a {
 	color: #ddd;
@@ -1178,10 +1179,17 @@ ul.admin_plugins {
 .elgg-plugin.elgg-state-inactive {
 	background: #dedede;
 }
-.elgg-dependency.elgg-state-error {
+
+.elgg-state-error {
 	background: #fbe3e4;
 	color: #8a1f11;
 	border-color: #fbc2c4;
+	font-weight: bold;
+}
+.elgg-state-warning {
+	background: #fbedb5;
+	color: #000000;
+	border-color: #fbe58b;
 	font-weight: bold;
 }
 

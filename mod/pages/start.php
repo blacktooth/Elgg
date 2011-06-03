@@ -25,7 +25,7 @@ function pages_init() {
 	// Register a url handler
 	elgg_register_entity_url_handler('object', 'page_top', 'pages_url');
 	elgg_register_entity_url_handler('object', 'page', 'pages_url');
-	register_extender_url_handler('pages_revision_url', 'annotation', 'page');
+	elgg_register_annotation_url_handler('page', 'pages_revision_url');
 
 	// Register some actions
 	$action_base = elgg_get_plugins_path() . 'pages/actions/pages';
@@ -95,7 +95,7 @@ function pages_init() {
  *  Edit page:        pages/edit/<guid>
  *  History of page:  pages/history/<guid>
  *  Revision of page: pages/revision/<id>
- *  Group pages:      pages/group/<guid>/owner
+ *  Group pages:      pages/group/<guid>/all
  *
  * Title is ignored
  *
@@ -208,7 +208,7 @@ function pages_owner_block_menu($hook, $type, $return, $params) {
 		$return[] = $item;
 	} else {
 		if ($params['entity']->pages_enable != "no") {
-			$url = "pages/group/{$params['entity']->guid}/owner";
+			$url = "pages/group/{$params['entity']->guid}/all";
 			$item = new ElggMenuItem('pages', elgg_echo('pages:group'), $url);
 			$return[] = $item;
 		}
