@@ -9,7 +9,7 @@ elgg_push_breadcrumb(elgg_echo('thewire'));
 $title = elgg_echo('thewire:everyone');
 
 if (elgg_is_logged_in()) {
-	$content .= elgg_view_form('thewire/add');
+	$content .= elgg_view_form('thewire/add', array('id' => 'thewire-form-add'));
 	$content .= elgg_view('input/urlshortener');
 }
 
