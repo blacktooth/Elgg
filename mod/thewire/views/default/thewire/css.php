@@ -7,15 +7,9 @@
 /********************************
 The Wire
 *********************************/
-#thewire-textarea {
+.thewire-textarea {
 	height: 40px;
 	padding: 6px;
-}
-#thewire-characters-remaining {
-	text-align: right;
-	float: right;
-	font-weight: bold;
-	color: #333333;
 }
 .thewire-characters-remaining {
 	color:#333333;
@@ -26,6 +20,7 @@ The Wire
 	margin:0;
 	text-align: right;
 	background: white;
+	float: right;
 }
 .thewire-parent {
 	margin-left: 40px;
