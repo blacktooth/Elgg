@@ -365,7 +365,30 @@ function input_livesearch_page_handler($page) {
 				// arbitrary subtype.
 				//@todo you cannot specify a subtype without a type.
 				// did this ever work?
-				elgg_get_entities(array('subtype' => $type, 'owner_guid' => $owner_guid));
+				$query = "SELECT * FROM 
+						{$CONFIG->dbprefix}objects_entity as oe,
+						{$CONFIG->dbprefix}_entities as e
+					WHERE e.type = 'object'
+						AND e.subtype = '$type'
+						AND e.enabled = 'yes'
+						AND e.guid = oe.guid
+						AND oe.title LIKE '$q%'
+					LIMIT $limit
+				";
+				if ($entities = get_data($query)) {
+					foreach ($entities as $entity) {
+						$json = json_encode(array(
+							'type' => 'object',
+							'subtype' => $type,
+							'name' => $entity->name,
+							'desc' => $entity->description,
+							'icon' => '<img class="livesearch_icon" src="'
+								. get_entity($entity->guid)->getIcon('tiny') . '" />',
+							'guid' => $entity->guid
+						));
+						$results[$entity->name . rand(1, 100)] = $json;
+					}
+				}
 				break;
 		}
 	}
