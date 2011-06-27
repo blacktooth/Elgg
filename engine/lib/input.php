@@ -363,16 +363,18 @@ function input_livesearch_page_handler($page) {
 
 			default:
 				// arbitrary subtype.
-				//@todo you cannot specify a subtype without a type.
-				// did this ever work?
+				//subtype pages is registered as page_top in the db
+				$type = ($type === 'pages')?'page_top':$type; 
+
+				$subtype = get_subtype_id('object', $type);
 				$query = "SELECT * FROM 
-						{$CONFIG->dbprefix}objects_entity as oe,
-						{$CONFIG->dbprefix}_entities as e
+						{$CONFIG->dbprefix}entities as e,
+						{$CONFIG->dbprefix}objects_entity as oe
 					WHERE e.type = 'object'
-						AND e.subtype = '$type'
+						AND e.subtype = $subtype
 						AND e.enabled = 'yes'
 						AND e.guid = oe.guid
-						AND oe.title LIKE '$q%'
+						AND (oe.title LIKE '$q%' OR oe.description LIKE '$q%')
 					LIMIT $limit
 				";
 				if ($entities = get_data($query)) {
@@ -380,13 +382,13 @@ function input_livesearch_page_handler($page) {
 						$json = json_encode(array(
 							'type' => 'object',
 							'subtype' => $type,
-							'name' => $entity->name,
+							'title' => $entity->title,
 							'desc' => $entity->description,
 							'icon' => '<img class="livesearch_icon" src="'
 								. get_entity($entity->guid)->getIcon('tiny') . '" />',
 							'guid' => $entity->guid
 						));
-						$results[$entity->name . rand(1, 100)] = $json;
+						$results[$entity->title . rand(1, 100)] = $json;
 					}
 				}
 				break;
