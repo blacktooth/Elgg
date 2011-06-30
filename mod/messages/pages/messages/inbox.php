@@ -30,7 +30,11 @@ $body_vars = array(
 	'folder' => 'inbox',
 	'list' => $list,
 );
-$content = elgg_view_form('messages/process', array(), $body_vars);
+
+$form_vars = array(
+	'id' => 'messages-inbox-form',
+);
+$content = elgg_view_form('messages/process', $form_vars, $body_vars);
 
 $body = elgg_view_layout('content', array(
 	'content' => $content,
