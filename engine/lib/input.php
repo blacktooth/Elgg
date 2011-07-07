@@ -278,6 +278,7 @@ function input_livesearch_page_handler($page) {
 				}
 				break;
 
+			case 'members':
 			case 'users':
 				$query = "SELECT * FROM {$CONFIG->dbprefix}users_entity as ue, {$CONFIG->dbprefix}entities as e
 					WHERE e.guid = ue.guid
@@ -289,15 +290,15 @@ function input_livesearch_page_handler($page) {
 
 				if ($entities = get_data($query)) {
 					foreach ($entities as $entity) {
-						$json = json_encode(array(
+						$result = array(
 							'type' => 'user',
 							'name' => $entity->name,
 							'desc' => $entity->username,
 							'icon' => '<img class="livesearch_icon" src="' .
 								get_entity($entity->guid)->getIconURL('tiny') . '" />',
 							'guid' => $entity->guid
-						));
-						$results[$entity->name . rand(1, 100)] = $json;
+						);
+						$results[$entity->name . rand(1, 100)] = $result;
 					}
 				}
 				break;
@@ -316,16 +317,16 @@ function input_livesearch_page_handler($page) {
 				";
 				if ($entities = get_data($query)) {
 					foreach ($entities as $entity) {
-						$json = json_encode(array(
+						$result = array(
 							'type' => 'group',
 							'name' => $entity->name,
 							'desc' => strip_tags($entity->description),
 							'icon' => '<img class="livesearch_icon" src="'
 								. get_entity($entity->guid)->getIcon('tiny') . '" />',
 							'guid' => $entity->guid
-						));
+						);
 
-						$results[$entity->name . rand(1, 100)] = $json;
+						$results[$entity->name . rand(1, 100)] = $result;
 					}
 				}
 				break;
@@ -348,15 +349,15 @@ function input_livesearch_page_handler($page) {
 
 				if ($entities = get_data($query)) {
 					foreach ($entities as $entity) {
-						$json = json_encode(array(
+						$result = array(
 							'type' => 'user',
 							'name' => $entity->name,
 							'desc' => $entity->username,
 							'icon' => '<img class="livesearch_icon" src="'
 								. get_entity($entity->guid)->getIcon('tiny') . '" />',
 							'guid' => $entity->guid
-						));
-						$results[$entity->name . rand(1, 100)] = $json;
+						);
+						$results[$entity->name . rand(1, 100)] = $result;
 					}
 				}
 				break;
@@ -367,6 +368,7 @@ function input_livesearch_page_handler($page) {
 				$type = ($type === 'pages')?'page_top':$type; 
 
 				$subtype = get_subtype_id('object', $type);
+				$access = get_access_sql_suffix();
 				$query = "SELECT * FROM 
 						{$CONFIG->dbprefix}entities as e,
 						{$CONFIG->dbprefix}objects_entity as oe
@@ -374,29 +376,30 @@ function input_livesearch_page_handler($page) {
 						AND e.subtype = $subtype
 						AND e.enabled = 'yes'
 						AND e.guid = oe.guid
+						AND $access
 						AND (oe.title LIKE '$q%' OR oe.description LIKE '$q%')
 					LIMIT $limit
 				";
 				if ($entities = get_data($query)) {
 					foreach ($entities as $entity) {
-						$json = json_encode(array(
+						$result = array(
 							'type' => 'object',
 							'subtype' => $type,
-							'title' => $entity->title,
+							'name' => $entity->title,
 							'desc' => $entity->description,
 							'icon' => '<img class="livesearch_icon" src="'
 								. get_entity($entity->guid)->getIcon('tiny') . '" />',
 							'guid' => $entity->guid
-						));
-						$results[$entity->title . rand(1, 100)] = $json;
+						);
+						$results[$entity->title . rand(1, 100)] = $result;
 					}
 				}
 				break;
 		}
 	}
-
 	ksort($results);
-	echo implode($results, "\n");
+
+	echo json_encode(array_values($results));
 	exit;
 }
 
