@@ -389,7 +389,11 @@ function input_livesearch_page_handler($page) {
 							'desc' => $entity->description,
 							'icon' => '<img class="livesearch_icon" src="'
 								. get_entity($entity->guid)->getIcon('tiny') . '" />',
-							'guid' => $entity->guid
+							'guid' => $entity->guid,
+							'user_icon' => '<img class="livesearch_icon" src="'
+								. get_entity($entity->owner_guid)->getIcon('tiny') . '" />',
+							'user_name' => get_entity($entity->owner_guid)->name,
+							'user_guid' => get_entity($entity->owner_guid)->guid
 						);
 						$results[$entity->title . rand(1, 100)] = $result;
 					}
